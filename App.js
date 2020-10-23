@@ -1,26 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Teste from './Teste';
-
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  StatusBar,
+  Platform,
+} from 'react-native';
+import {
+  useDimensions,
+  useDeviceOrientation,
+} from '@react-native-community/hooks';
 export default function App() {
-  let x = 1;
+  console.log(useDimensions(), useDeviceOrientation());
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>O expo está rodando no meu cel também</Text>
-      <StatusBar style='auto' />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View
+        style={{
+          backgroundColor: 'dodgerblue',
+          height: '60%',
+        }}
+      ></View>
+    </SafeAreaView>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'tomato',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: '#fff',
-  },
-  text: {
-    color: '#fff',
+    marginTop: !Platform.OS === 'ios' ? 0 : StatusBar.currentHeight,
   },
 });
