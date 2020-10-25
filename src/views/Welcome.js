@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, ImageBackground, Image, Text } from 'react-native';
 import Logo from '../assets/logo-red.png';
+import AppButton from '../components/AppButton';
+import colors from '../config/colors';
 
 function Welcome(props) {
   return (
@@ -10,10 +12,12 @@ function Welcome(props) {
     >
       <View style={styles.logoContainer}>
         <Image source={Logo} style={styles.logo} />
-        <Text>Venda o que você não precisa</Text>
+        <Text style={styles.tagLine}>Venda o que você não precisa</Text>
       </View>
-      <View style={styles.loginButton}></View>
-      <View style={styles.registerButton}></View>
+      <View style={styles.buttonContainer}>
+        <AppButton title='Login' />
+        <AppButton title='Cadastrar' color='secondary' />
+      </View>
     </ImageBackground>
   );
 }
@@ -28,12 +32,12 @@ const styles = StyleSheet.create({
   loginButton: {
     width: '100%',
     height: 70,
-    backgroundColor: '#fc5c65',
+    backgroundColor: colors.primary,
   },
   registerButton: {
     width: '100%',
     height: 70,
-    backgroundColor: '#4ecdc4',
+    backgroundColor: colors.secondary,
   },
   logo: {
     height: 64,
@@ -44,6 +48,15 @@ const styles = StyleSheet.create({
     top: 70,
     width: '100%',
     alignItems: 'center',
+  },
+  buttonContainer: {
+    width: '100%',
+    padding: 20,
+  },
+  tagLine: {
+    fontSize: 20,
+    fontWeight: '600',
+    paddingVertical: 20,
   },
 });
 
