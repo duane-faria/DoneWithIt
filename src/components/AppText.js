@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function AppText({ children }) {
+export default function AppText({ children, style }) {
   return (
     <View>
-      <Text></Text>
+      <Text style={[styles.text, { ...style }]}>{children}</Text>
     </View>
   );
 }
