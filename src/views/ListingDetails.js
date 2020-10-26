@@ -14,8 +14,8 @@ export default function ListingDetails() {
       </View>
       <View style={styles.userContainer}>
         <ListItem
-          image={require('../assets/mosh.jpg')}
-          title='Mosh Hamedani'
+          image={require('../assets/duane.jpg')}
+          title='Duane Faria'
           subTitle='5 itens'
         />
       </View>

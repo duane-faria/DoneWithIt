@@ -12,13 +12,13 @@ function Messages() {
       id: 1,
       title: 'T1',
       description: 'D1',
-      image: require('../assets/mosh.jpg'),
+      image: require('../assets/duane.jpg'),
     },
     {
       id: 2,
       title: 'T2',
       description: 'T2',
-      image: require('../assets/mosh.jpg'),
+      image: require('../assets/duane.jpg'),
     },
   ]);
   const [refreshing, setRefreshing] = React.useState(false);
@@ -51,7 +51,7 @@ function Messages() {
               id: 3,
               title: 'T3',
               description: 'T3',
-              image: require('../assets/mosh.jpg'),
+              image: require('../assets/duane.jpg'),
             },
           ]);
         }}
