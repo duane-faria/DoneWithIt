@@ -18,7 +18,8 @@ export default function ListItem({ image, title, subTitle }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
+    padding: 15,
   },
   image: {
     height: 70,
