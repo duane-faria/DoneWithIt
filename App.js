@@ -10,12 +10,13 @@ import Messages from './src/views/Messages';
 import Icon from './src/components/Icon';
 import ListItem from './src/components/ListItem';
 import Account from './src/views/Account';
+import Listing from './src/views/Listing';
 
 export default function App() {
   return (
     <Screen>
       {/* <ListItem title='Lista' ImageComponent={<Icon name='email' />} /> */}
-      <Account />
+      <Listing />
     </Screen>
   );
 }
