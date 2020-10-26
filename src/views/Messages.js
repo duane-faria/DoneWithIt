@@ -21,6 +21,7 @@ function Messages() {
       image: require('../assets/mosh.jpg'),
     },
   ]);
+  const [refreshing, setRefreshing] = React.useState(false);
 
   const handleDelete = (message) => {
     setMessage(messages.filter((m) => m.id != message.id));
@@ -43,6 +44,17 @@ function Messages() {
           />
         )}
         ItemSeparatorComponent={() => <ListItemSeparator />}
+        refreshing={refreshing}
+        onRefresh={() => {
+          setMessage([
+            {
+              id: 3,
+              title: 'T3',
+              description: 'T3',
+              image: require('../assets/mosh.jpg'),
+            },
+          ]);
+        }}
       ></FlatList>
     </Screen>
   );
