@@ -13,17 +13,38 @@ import Account from './src/views/Account';
 import Listing from './src/views/Listing';
 import AppTextInput from './src/components/AppTextInput';
 import AppPicker from './src/components/AppPicker';
+import Login from './src/views/Login';
+
+const categories = [
+  {
+    label: 'Móveis',
+    value: 1,
+  },
+  {
+    label: 'Roupas',
+    value: 2,
+  },
+  {
+    label: 'Câmeras',
+    value: 3,
+  },
+];
 
 export default function App() {
-  const [firstName, setFirstName] = React.useState('');
+  const [category, setCategory] = React.useState(categories[1]);
   const [x, setX] = React.useState(false);
 
   return (
     <Screen>
-      {/* <Switch value={x} onValueChange={(y) => setX(y)} />
+      <Login />
+      {/* <AppPicker
+        selectedItem={category}
+        onSelectItem={(item) => setCategory(item)}
+        items={categories}
+        placeholder='Categoria'
+        icon='apps'
+      />
       <AppTextInput placeholder='name' icon='email' /> */}
-      <AppPicker placeholder='Categoria' icon='apps' />
-      <AppTextInput placeholder='name' icon='email' />
     </Screen>
   );
 }
