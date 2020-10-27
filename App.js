@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Switch, Text, TextInput, View } from 'react-native';
 import AppButton from './src/components/AppButton';
 import Card from './src/components/Card';
 import Screen from './src/components/Screen';
@@ -11,12 +11,19 @@ import Icon from './src/components/Icon';
 import ListItem from './src/components/ListItem';
 import Account from './src/views/Account';
 import Listing from './src/views/Listing';
+import AppTextInput from './src/components/AppTextInput';
+import AppPicker from './src/components/AppPicker';
 
 export default function App() {
+  const [firstName, setFirstName] = React.useState('');
+  const [x, setX] = React.useState(false);
+
   return (
     <Screen>
-      {/* <ListItem title='Lista' ImageComponent={<Icon name='email' />} /> */}
-      <Listing />
+      {/* <Switch value={x} onValueChange={(y) => setX(y)} />
+      <AppTextInput placeholder='name' icon='email' /> */}
+      <AppPicker placeholder='Categoria' icon='apps' />
+      <AppTextInput placeholder='name' icon='email' />
     </Screen>
   );
 }
