@@ -4,33 +4,41 @@ import AppButton from '../components/AppButton';
 import AppText from '../components/AppText';
 import AppTextInput from '../components/AppTextInput';
 import Screen from '../components/Screen';
+import { Formik } from 'formik';
 
 export default function Login() {
-  const [email, setEmail] = React.useState();
-  const [password, setPassword] = React.useState();
-
   return (
     <Screen style={styles.container}>
       <Image source={require('../assets/logo-red.png')} style={styles.logo} />
-      <AppTextInput
-        icon='email'
-        placeholder='Email'
-        autoCapitalize='none'
-        autoCorrect={false}
-        onChangeText={(text) => setEmail(text)}
-        KeyboardType='email-address'
-        textContentType='emailAddress'
-      />
-      <AppTextInput
-        autoCapitalize='none'
-        autoCorrect={false}
-        icon='lock'
-        placeholder='Password'
-        secureTextEntry
-        onChangeText={(text) => setPassword(text)}
-        textContentType='password'
-      />
-      <AppButton title='Login' onPress={() => console.log(email, password)} />
+
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        onSubmit={(values) => console.log(values)}
+      >
+        {({ handleChange, handleSubmit }) => (
+          <>
+            <AppTextInput
+              icon='email'
+              placeholder='Email'
+              autoCapitalize='none'
+              autoCorrect={false}
+              onChangeText={handleChange(`email`)}
+              KeyboardType='email-address'
+              textContentType='emailAddress'
+            />
+            <AppTextInput
+              autoCapitalize='none'
+              autoCorrect={false}
+              icon='lock'
+              placeholder='Password'
+              secureTextEntry
+              onChangeText={handleChange(`password`)}
+              textContentType='password'
+            />
+            <AppButton title='Login' onPress={handleSubmit} />
+          </>
+        )}
+      </Formik>
     </Screen>
   );
 }
