@@ -14,6 +14,10 @@ import Listing from './src/views/Listing';
 import AppTextInput from './src/components/AppTextInput';
 import AppPicker from './src/components/AppPicker';
 import Login from './src/views/Login';
+import AppFormPicker from './src/components/forms/AppFormPicker';
+import AppForm from './src/components/forms/AppForm';
+import ListingEdit from './src/views/ListingEdit';
+import Register from './src/views/Register';
 
 const categories = [
   {
@@ -36,7 +40,8 @@ export default function App() {
 
   return (
     <Screen>
-      <Login />
+      {/* <Login /> */}
+      <Register />
       {/* <AppPicker
         selectedItem={category}
         onSelectItem={(item) => setCategory(item)}
