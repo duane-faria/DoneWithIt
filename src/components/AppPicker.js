@@ -17,7 +17,9 @@ import colors from '../config/colors';
 export default function AppPicker({
   icon,
   items,
+  numberOfColumns = 1,
   onSelectItem,
+  PickerItemComponent = PickerItem,
   selectedItem,
   placeholder,
   ...props
@@ -51,9 +53,11 @@ export default function AppPicker({
         <Button title='Close' onPress={() => setModal(false)} />
         <FlatList
           data={items}
+          numColumns={numberOfColumns}
           keyExtractor={(item) => item.value.toString()}
           renderItem={({ item }) => (
-            <PickerItem
+            <PickerItemComponent
+              item={item}
               label={item.label}
               onPress={() => {
                 setModal(false);

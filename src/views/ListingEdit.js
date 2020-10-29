@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Yup from 'yup';
+import CategoryPickerItem from '../components/CategoryPickerItem';
 import AppForm from '../components/forms/AppForm';
 import AppFormField from '../components/forms/AppFormField';
 import AppFormPicker from '../components/forms/AppFormPicker';
@@ -17,16 +18,58 @@ const validationSchema = Yup.object().shape({
 
 const categories = [
   {
+    backgroundColor: '#fc5c65',
+    icon: 'floor-lamp',
+    label: 'Móveis',
     value: 1,
-    label: 'Móvies',
   },
   {
+    backgroundColor: '#fd9644',
+    icon: 'car',
+    label: 'Carros',
     value: 2,
-    label: 'Roupas',
   },
   {
+    backgroundColor: '#fed330',
+    icon: 'camera',
+    label: 'Câmeras',
     value: 3,
-    label: 'Eletrônicos',
+  },
+  {
+    backgroundColor: '#26de81',
+    icon: 'cards',
+    label: 'Games',
+    value: 4,
+  },
+  {
+    backgroundColor: '#2bcbba',
+    icon: 'shoe-heel',
+    label: 'Roupas',
+    value: 5,
+  },
+  {
+    backgroundColor: '#45aaf2',
+    icon: 'basketball',
+    label: 'Esportes',
+    value: 6,
+  },
+  {
+    backgroundColor: '#4b7bec',
+    icon: 'headphones',
+    label: 'Cinema e música',
+    value: 7,
+  },
+  {
+    backgroundColor: '#a55eea',
+    icon: 'book-open-variant',
+    label: 'Livros',
+    value: 8,
+  },
+  {
+    backgroundColor: '#778ca3',
+    icon: 'application',
+    label: 'Outros',
+    value: 9,
   },
 ];
 
@@ -60,6 +103,8 @@ export default function ListingEdit() {
           items={categories}
           placeholder='Categorias'
           name='category'
+          numberOfColumns={3}
+          PickerItemComponent={CategoryPickerItem}
         />
         <AppFormField
           maxLength={255}
