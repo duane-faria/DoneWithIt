@@ -8,9 +8,9 @@ import Screen from '../components/Screen';
 import SubmitButton from '../components/forms/SubmitButton';
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required().min(1),
-  email: Yup.string().required().min(1),
-  password: Yup.string().required().min(1),
+  name: Yup.string().required('Nome é obrigatório').min(1),
+  email: Yup.string().required('E-mail é obrigatório').min(1),
+  password: Yup.string().required('Senha é obrigatória').min(1),
 });
 
 export default function Register() {

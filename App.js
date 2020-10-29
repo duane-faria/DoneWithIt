@@ -40,16 +40,7 @@ export default function App() {
 
   return (
     <Screen>
-      {/* <Login /> */}
-      <Register />
-      {/* <AppPicker
-        selectedItem={category}
-        onSelectItem={(item) => setCategory(item)}
-        items={categories}
-        placeholder='Categoria'
-        icon='apps'
-      />
-      <AppTextInput placeholder='name' icon='email' /> */}
+      <Messages />
     </Screen>
   );
 }
