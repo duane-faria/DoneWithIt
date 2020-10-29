@@ -10,14 +10,14 @@ function Messages() {
   const [messages, setMessage] = React.useState([
     {
       id: 1,
-      title: 'T1',
-      description: 'D1',
+      title: 'Duane faria',
+      description: 'eae mano, você ainda tem esse item a venda?',
       image: require('../assets/duane.jpg'),
     },
     {
       id: 2,
-      title: 'T2',
-      description: 'T2',
+      title: 'Duane faria',
+      description: 'Você negocia o valor dessa jaqueta ai bro?',
       image: require('../assets/duane.jpg'),
     },
   ]);
