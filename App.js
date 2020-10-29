@@ -1,5 +1,13 @@
 import React from 'react';
-import { StyleSheet, Switch, Text, TextInput, View } from 'react-native';
+import {
+  Button,
+  Image,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import AppButton from './src/components/AppButton';
 import Card from './src/components/Card';
 import Screen from './src/components/Screen';
@@ -18,37 +26,40 @@ import AppFormPicker from './src/components/forms/AppFormPicker';
 import AppForm from './src/components/forms/AppForm';
 import ListingEdit from './src/views/ListingEdit';
 import Register from './src/views/Register';
-
-const categories = [
-  {
-    label: 'Móveis',
-    value: 1,
-  },
-  {
-    label: 'Roupas',
-    value: 2,
-  },
-  {
-    label: 'Câmeras',
-    value: 3,
-  },
-];
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
 export default function App() {
-  const [category, setCategory] = React.useState(categories[1]);
-  const [x, setX] = React.useState(false);
+  const [imageUri, setImageUri] = React.useState();
+
+  const requestPermission = async () => {
+    const res = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL,
+      Permissions.LOCATION
+    );
+    if (res.granted) alert('ok');
+    else alert('libera la');
+    // const { granted } = await ImagePicker.requestCameraRollPermissionsAsync;
+    // if (!granted) alert('você precisa habilitar o uso da câmera');
+  };
+
+  React.useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const selectImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync();
+      if (!result.cancelled) setImageUri(result.uri);
+    } catch (e) {}
+  };
 
   return (
     <Screen>
-      <ListingEdit />
+      <Button title='Selecione uma imagem' onPress={selectImage} />
+      <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
     </Screen>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 100,
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-});
+
+const styles = StyleSheet.create({});
