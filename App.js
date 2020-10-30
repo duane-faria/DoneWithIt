@@ -37,8 +37,8 @@ export default function App() {
       Permissions.CAMERA_ROLL,
       Permissions.LOCATION
     );
-    if (res.granted) alert('ok');
-    else alert('libera la');
+    // if (res.granted) alert('ok');
+    // else alert('libera la');
     // const { granted } = await ImagePicker.requestCameraRollPermissionsAsync;
     // if (!granted) alert('você precisa habilitar o uso da câmera');
   };
@@ -56,8 +56,10 @@ export default function App() {
 
   return (
     <Screen>
-      <Button title='Selecione uma imagem' onPress={selectImage} />
-      <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />
+      {/* <Button title='Selecione uma imagem' onPress={selectImage} />
+      <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} /> */}
+
+      <ListingEdit />
     </Screen>
   );
 }
