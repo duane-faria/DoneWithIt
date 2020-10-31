@@ -11,6 +11,7 @@ import SubmitButton from '../components/forms/SubmitButton';
 import ImageInput from '../components/ImageInput';
 import Screen from '../components/Screen';
 import defaultStyles from '../config/styles';
+import useLocation from '../hooks/useLocation';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('campo obrigatório').min(1).label('Título'),
@@ -20,10 +21,10 @@ const validationSchema = Yup.object().shape({
     .max(10000)
     .label('Preço'),
   description: Yup.string().label('Descrição'),
-  category: Yup.object()
-    .required('campo obrigatório')
-    .nullable()
-    .label('Category'),
+  // category: Yup.object()
+  //   .required('campo obrigatório')
+  //   .nullable()
+  //   .label('Category'),
   images: Yup.array().min(1, 'Por favor selecione ao menos uma imagem.'),
 });
 
@@ -85,6 +86,7 @@ const categories = [
 ];
 
 export default function ListingEdit() {
+  const location = useLocation();
   return (
     <Screen style={{ paddingHorizontal: 10 }}>
       <AppForm
@@ -95,7 +97,7 @@ export default function ListingEdit() {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={(values) => console.log(location)}
         validationSchema={validationSchema}
       >
         <FormImagePicker name='images' />
