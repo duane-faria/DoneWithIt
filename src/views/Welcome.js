@@ -11,7 +11,7 @@ function Welcome({ navigation }) {
       source={require('../assets/background.jpg')}
     >
       <View style={styles.logoContainer}>
-        <Image source={Logo} style={styles.logo} />
+        <Image source={require('../assets/logo-red.png')} style={styles.logo} />
         <Text style={styles.tagLine}>Venda o que você não precisa</Text>
       </View>
       <View style={styles.buttonContainer}>

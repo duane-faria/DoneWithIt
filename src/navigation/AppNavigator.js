@@ -45,6 +45,7 @@ export default AppNavigator = () => (
         tabBarIcon: ({ size, color }) => (
           <MaterialCommunityIcons name='account' size={size} color={color} />
         ),
+        title: 'Conta',
       }}
     />
   </Tab.Navigator>
