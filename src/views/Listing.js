@@ -9,41 +9,16 @@ import listingsApi from '../api/listings';
 import AppText from '../components/AppText';
 import AppButton from '../components/AppButton';
 import ActivityIndicator from '../components/ActivityIndicator';
-
-// const listings = [
-//   {
-//     id: 1,
-//     title: 'red jacket for sale',
-//     price: 100,
-//     image: require('../assets/jacket.jpg'),
-//   },
-//   {
-//     id: 2,
-//     title: 'couch in excelent conditions',
-//     price: 1000,
-//     image: require('../assets/couch.jpg'),
-//   },
-// ];
+import useApi from '../hooks/useApi';
 
 export default function Listing({ navigation }) {
-  const [listings, setListings] = React.useState([]);
-  const [error, setError] = React.useState(false);
-  const [loading, setLoading] = React.useState(false);
+  const { data: listings, error, loading, request: loadListings } = useApi(
+    listingsApi.getListings
+  );
 
   React.useEffect(() => {
     loadListings();
   }, []);
-
-  const loadListings = async () => {
-    setLoading(true);
-    const response = await listingsApi.getListings();
-    setLoading(false);
-
-    if (!response.ok) return setError(true);
-
-    setListings(response.data);
-    setError(false);
-  };
 
   return (
     <Screen style={styles.screen}>
