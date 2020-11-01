@@ -29,38 +29,22 @@ import Register from './src/views/Register';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import AuthNavigator from './src/navigation/AuthNavigator';
+import navigationTheme from './src/navigation/navigationTheme';
+import AppNavigator from './src/navigation/AppNavigator';
+
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
+
 export default function App() {
-  const [imageUri, setImageUri] = React.useState();
-
-  const requestPermission = async () => {
-    const res = await Permissions.askAsync(
-      Permissions.CAMERA_ROLL,
-      Permissions.LOCATION
-    );
-    // if (res.granted) alert('ok');
-    // else alert('libera la');
-    // const { granted } = await ImagePicker.requestCameraRollPermissionsAsync;
-    // if (!granted) alert('você precisa habilitar o uso da câmera');
-  };
-
-  React.useEffect(() => {
-    requestPermission();
-  }, []);
-
-  const selectImage = async () => {
-    try {
-      const result = await ImagePicker.launchImageLibraryAsync();
-      if (!result.cancelled) setImageUri(result.uri);
-    } catch (e) {}
-  };
-
   return (
-    <Screen>
-      {/* <Button title='Selecione uma imagem' onPress={selectImage} />
-      <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} /> */}
-
-      <ListingEdit />
-    </Screen>
+    <NavigationContainer theme={navigationTheme}>
+      <AppNavigator />
+    </NavigationContainer>
   );
 }
 

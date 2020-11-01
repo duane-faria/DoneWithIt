@@ -4,7 +4,7 @@ import Logo from '../assets/logo-red.png';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 
-function Welcome(props) {
+function Welcome({ navigation }) {
   return (
     <ImageBackground
       style={styles.background}
@@ -15,8 +15,12 @@ function Welcome(props) {
         <Text style={styles.tagLine}>Venda o que você não precisa</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <AppButton title='Login' />
-        <AppButton title='Cadastrar' color='secondary' />
+        <AppButton title='Login' onPress={() => navigation.navigate('Login')} />
+        <AppButton
+          title='Cadastrar'
+          color='secondary'
+          onPress={() => navigation.navigate('Register')}
+        />
       </View>
     </ImageBackground>
   );

@@ -20,14 +20,19 @@ const listings = [
   },
 ];
 
-export default function Listing() {
+export default function Listing({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <FlatList
         data={listings}
         keyExtractor={(list) => list.id.toString()}
         renderItem={({ item }) => (
-          <Card title={item.title} subTitle={item.price} image={item.image} />
+          <Card
+            title={item.title}
+            subTitle={item.price}
+            image={item.image}
+            onPress={() => navigation.navigate('ListingDetails', item)}
+          />
         )}
       />
     </Screen>
