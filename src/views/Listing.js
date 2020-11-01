@@ -24,6 +24,7 @@ export default function Listing({ navigation }) {
   return (
     <Screen style={styles.screen}>
       <FlatList
+        style={{ marginTop: 15 }}
         data={listings}
         keyExtractor={(list) => list.id.toString()}
         renderItem={({ item }) => (
