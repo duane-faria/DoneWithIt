@@ -50,7 +50,7 @@ export default function AppPicker({
         </View>
       </TouchableWithoutFeedback>
       <Modal visible={modal} animationType='slide'>
-        <Button title='Close' onPress={() => setModal(false)} />
+        <Button title='Fechar' color='tomato' onPress={() => setModal(false)} />
         <FlatList
           data={items}
           numColumns={numberOfColumns}
