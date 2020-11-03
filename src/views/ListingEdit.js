@@ -12,6 +12,8 @@ import ImageInput from '../components/ImageInput';
 import Screen from '../components/Screen';
 import defaultStyles from '../config/styles';
 import useLocation from '../hooks/useLocation';
+import listingApi from '../api/listings';
+import Upload from './Upload';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('campo obrigatório').min(1).label('Título'),
@@ -21,10 +23,10 @@ const validationSchema = Yup.object().shape({
     .max(10000)
     .label('Preço'),
   description: Yup.string().label('Descrição'),
-  // category: Yup.object()
-  //   .required('campo obrigatório')
-  //   .nullable()
-  //   .label('Category'),
+  category: Yup.object()
+    .required('campo obrigatório')
+    .nullable()
+    .label('Category'),
   images: Yup.array().min(1, 'Por favor selecione ao menos uma imagem.'),
 });
 
@@ -87,8 +89,29 @@ const categories = [
 
 export default function ListingEdit() {
   const location = useLocation();
+  const [uploadVisible, setUploadVisible] = React.useState(false);
+  const [progress, setProgress] = React.useState(0);
+
+  async function handleSubmit(listing, { resetForm }) {
+    setProgress(0);
+    setUploadVisible(true);
+    const res = await listingApi.addListing(
+      { ...listing, location },
+      (progress) => setProgress(progress)
+    );
+
+    if (!res.ok) alert('Algo deu errado D:');
+
+    resetForm();
+  }
+
   return (
     <Screen style={{ paddingHorizontal: 10 }}>
+      <Upload
+        progress={progress}
+        visible={uploadVisible}
+        onDone={() => setUploadVisible(false)}
+      />
       <AppForm
         initialValues={{
           title: '',
@@ -97,7 +120,7 @@ export default function ListingEdit() {
           category: null,
           images: [],
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <FormImagePicker name='images' />
