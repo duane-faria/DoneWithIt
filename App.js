@@ -40,7 +40,11 @@ import AppNavigator from './src/navigation/AppNavigator';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+import NetInfo from '@react-native-community/netinfo';
+
 export default function App() {
+  const netInfo = NetInfo.useNetInfo();
+  console.log(netInfo);
   return (
     <NavigationContainer theme={navigationTheme}>
       <AppNavigator />

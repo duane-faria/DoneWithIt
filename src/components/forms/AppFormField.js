@@ -9,7 +9,6 @@ export default function AppFormField({ name, ...props }) {
   const {
     setFieldTouched,
     setFieldValue,
-    handleChange,
     errors,
     touched,
     values,
