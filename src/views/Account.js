@@ -1,13 +1,13 @@
 import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import AuthContext from '../auth/context';
-import authStorage from '../auth/storage';
+import { FlatList, StyleSheet, View } from 'react-native';
+
+import useAuth from '../auth/useAuth';
 import Icon from '../components/Icon';
 import ListItem from '../components/ListItem';
 import ListItemSeparator from '../components/ListItemSeparator';
-
 import Screen from '../components/Screen';
 import colors from '../config/colors';
+
 const menuItems = [
   {
     title: 'Minhas listas',
@@ -26,12 +26,7 @@ const menuItems = [
   },
 ];
 export default function Account({ navigation }) {
-  const { user, setUser } = React.useContext(AuthContext);
-
-  const handleLogout = () => {
-    setUser(null);
-    authStorage.removeToken();
-  };
+  const { user, logOut } = useAuth();
 
   return (
     <Screen style={styles.screen}>
@@ -64,7 +59,7 @@ export default function Account({ navigation }) {
       <ListItem
         title='Sair'
         IconComponent={<Icon name='logout' backgroundColor='#ffe66d' />}
-        onPress={handleLogout}
+        onPress={() => logOut()}
       />
     </Screen>
   );
