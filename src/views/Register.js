@@ -6,6 +6,9 @@ import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
 import SubmitButton from '../components/forms/SubmitButton';
+import Auth from '../api/auth';
+import ErrorMessage from '../components/forms/ErrorMessage';
+import useAuth from '../auth/useAuth';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório').min(1),
@@ -14,15 +17,30 @@ const validationSchema = Yup.object().shape({
 });
 
 export default function Register() {
+  const [error, setError] = React.useState(false);
+  const authStore = useAuth();
+  async function handleSubmit(values) {
+    const response = await Auth.register(values);
+    if (!response.ok) {
+      setError(true);
+      return;
+    }
+
+    const user = response.data;
+    setError(false);
+    const { data: token } = await Auth.login(user.email, user.password);
+    authStore.logIn(token);
+  }
   return (
     <Screen style={{ paddingHorizontal: 10 }}>
+      <ErrorMessage error='Usuário ou senha já cadastrados' visible={error} />
       <AppForm
         initialValues={{
           name: '',
           email: '',
           password: '',
         }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormField
@@ -41,6 +59,7 @@ export default function Register() {
           keyboardType='numeric'
         />
         <AppFormField
+          secureTextEntry
           name='password'
           icon='lock'
           placeholder='Senha'
