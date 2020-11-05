@@ -7,6 +7,7 @@ export default useLocation = () => {
   const getLocation = async () => {
     try {
       const { granted } = await Location.requestPermissionsAsync();
+      console.log(granted);
       if (!granted) return;
       const {
         coords: { latitude, longitude },

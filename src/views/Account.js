@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   screen: {
-    marginVertical: 20,
+    paddingTop: -5,
   },
 });
