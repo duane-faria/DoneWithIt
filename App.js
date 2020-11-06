@@ -33,3 +33,7 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
+
+// "android": {
+//   "useNextNotificationsApi": true
+// },
