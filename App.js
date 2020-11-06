@@ -8,6 +8,7 @@ import OfflineNotice from './src/components/OfflineNotice';
 import AuthNavigator from './src/navigation/AuthNavigator';
 import AuthContext from './src/auth/context';
 import authStorage from './src/auth/storage';
+import { navigationRef } from './src/navigation/rootNavigation';
 
 export default function App() {
   const [user, setUser] = React.useState();
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
-      <NavigationContainer theme={navigationTheme}>
+      <NavigationContainer ref={navigationRef} theme={navigationTheme}>
         {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
