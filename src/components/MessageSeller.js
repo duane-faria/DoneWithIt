@@ -14,14 +14,16 @@ const validationSchema = Yup.object().shape({
 
 export default function MessageSeller({ listing }) {
   async function handleSubmit(form, { resetForm }) {
+    Keyboard.dismiss();
+
     const res = await messagesApi.send(form.message, listing.id);
+
     if (res && !res.ok) {
-      Alert.alert('Atenção', 'Algo de errado ocorreu, tente novamente.');
+      return Alert.alert('Atenção', 'Algo de errado ocorreu, tente novamente.');
     }
 
-    resetForm();
+    console.log(resetForm());
 
-    Keyboard.dismiss();
     Notifications.presentLocalNotificationAsync({
       title: 'Incrível!',
       body: 'Sua mensagem foi enviada',
