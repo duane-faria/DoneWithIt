@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { AppLoading } from 'expo';
+import { AppLoading, Notifications } from 'expo';
 
 import navigationTheme from './src/navigation/navigationTheme';
 import AppNavigator from './src/navigation/AppNavigator';
@@ -33,7 +33,3 @@ export default function App() {
     </AuthContext.Provider>
   );
 }
-
-// "android": {
-//   "useNextNotificationsApi": true
-// },
