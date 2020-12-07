@@ -22,7 +22,7 @@ export default function MessageSeller({ listing }) {
       return Alert.alert('Atenção', 'Algo de errado ocorreu, tente novamente.');
     }
 
-    console.log(resetForm());
+    resetForm();
 
     Notifications.presentLocalNotificationAsync({
       title: 'Incrível!',

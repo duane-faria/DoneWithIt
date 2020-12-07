@@ -19,6 +19,10 @@
     "ios": {
       "supportsTablet": true
     },
+    "android":{
+      "package":"com.duane_faria.getitdone",
+      "versionCode":1
+    },
     "web": {
       "favicon": "./src/assets/favicon.png"
     },

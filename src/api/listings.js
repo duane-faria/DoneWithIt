@@ -1,6 +1,6 @@
 import client from './client';
 
-const endpoint = '/listings';
+const endpoint = '/ads';
 
 const getListings = () => client.get(endpoint);
 
@@ -13,7 +13,7 @@ const addListing = (listing, onUploadProgress) => {
   data.append('description', listing.category.value);
 
   listing.images.forEach((image, index) => {
-    data.append('images', {
+    data.append('files', {
       name: 'image' + index,
       type: 'image/jpeg',
       uri: image,

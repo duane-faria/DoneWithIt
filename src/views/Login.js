@@ -25,7 +25,7 @@ export default function Login() {
 
     if (!result.ok) return setLoginFailed(true);
 
-    const token = result.data;
+    const { token } = result.data;
     logIn(token);
   }
 

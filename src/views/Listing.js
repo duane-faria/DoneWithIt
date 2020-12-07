@@ -1,7 +1,8 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import Card from '../components/Card';
+import { useIsFocused } from '@react-navigation/native';
 
+import Card from '../components/Card';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 import routes from '../navigation/routes';
@@ -12,13 +13,19 @@ import ActivityIndicator from '../components/ActivityIndicator';
 import useApi from '../hooks/useApi';
 
 export default function Listing({ navigation }) {
+  const flatlist = React.useRef();
   const { data: listings, error, loading, request: loadListings } = useApi(
     listingsApi.getListings
   );
 
+  const isFocused = useIsFocused();
+
   React.useEffect(() => {
+    console.log('called');
     loadListings();
-  }, []);
+    flatlist.current.scrollToEnd();
+    () => loadListings();
+  }, [isFocused]);
 
   return (
     <>
@@ -30,20 +37,26 @@ export default function Listing({ navigation }) {
             <AppButton title='Ok' onPress={loadListings} />
           </>
         )}
-        <FlatList
-          style={{ marginTop: 15 }}
-          data={listings}
-          keyExtractor={(list) => list.id.toString()}
-          renderItem={({ item }) => (
-            <Card
-              title={item.title}
-              subTitle={'R$ ' + item.price}
-              imageUrl={item.images[0].url}
-              onPress={() => navigation.navigate(routes.LISTING_DETAILS, item)}
-              thumbnailUrl={item.images[0].thumbnailUrl}
-            />
-          )}
-        />
+        {listings && (
+          <FlatList
+            ref={flatlist}
+            showsVerticalScrollIndicator={false}
+            style={{ marginTop: 15 }}
+            data={listings}
+            keyExtractor={(list) => list.id.toString()}
+            renderItem={({ item }) => (
+              <Card
+                title={item.title}
+                subTitle={'R$ ' + item.price}
+                imageUrl={item.images[0].url}
+                onPress={() =>
+                  navigation.navigate(routes.LISTING_DETAILS, item)
+                }
+                thumbnailUrl={item.images[0].thumbnailUrl}
+              />
+            )}
+          />
+        )}
       </Screen>
     </>
   );

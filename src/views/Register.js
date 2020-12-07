@@ -11,6 +11,7 @@ import ErrorMessage from '../components/forms/ErrorMessage';
 import useAuth from '../auth/useAuth';
 import useApi from '../hooks/useApi';
 import ActivityIndicator from '../components/ActivityIndicator';
+import settings from '../config/settings';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('Nome é obrigatório').min(1),
@@ -24,17 +25,48 @@ export default function Register() {
   const [error, setError] = React.useState(false);
   const authStore = useAuth();
 
-  async function handleSubmit(values) {
-    const response = await registerApi.request(values);
-    if (!response.ok) {
-      setError(true);
-      return;
-    }
+  function handleSubmit(values) {
+    // console.log(values);
+    // return;
+    // const response = await registerApi.request(values);
+    // if (!response.ok) {
+    //   setError(true);
+    //   return;
+    // }
 
-    const user = response.data;
-    setError(false);
-    const { data: token } = await loginApi.request(user.email, user.password);
-    authStore.logIn(token);
+    // const user = response.data;
+    // setError(false);
+    // const { data: token } = await loginApi.request(user.email, user.password);
+    // console.log(token, 'token');
+    // authStore.logIn(token.token);
+
+    fetch(`${settings.apiUrl}/users`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(values),
+    })
+      .then(function (response) {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response, 'retorno');
+        if (!response.user) {
+          setError(true);
+          return;
+        }
+        const user = response.user;
+
+        setError(false);
+        loginApi
+          .request(user.email, values.password)
+          .then(({ data: token }) => {
+            console.log(token, 'token');
+            authStore.logIn(token.token);
+          });
+      });
   }
 
   return (
