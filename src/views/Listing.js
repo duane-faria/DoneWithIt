@@ -1,6 +1,5 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
-import { useIsFocused } from '@react-navigation/native';
 
 import Card from '../components/Card';
 import Screen from '../components/Screen';
@@ -17,15 +16,16 @@ export default function Listing({ navigation }) {
   const { data: listings, error, loading, request: loadListings } = useApi(
     listingsApi.getListings
   );
+  const [refreshing,setRefreshing] = React.useState(false);
 
-  const isFocused = useIsFocused();
 
   React.useEffect(() => {
-    console.log('called');
     loadListings();
+
     flatlist.current.scrollToEnd();
+
     () => loadListings();
-  }, [isFocused]);
+  }, []);
 
   return (
     <>
@@ -39,6 +39,8 @@ export default function Listing({ navigation }) {
         )}
         {listings && (
           <FlatList
+            refreshing={refreshing}
+            onRefresh={()=>loadListings()}
             ref={flatlist}
             showsVerticalScrollIndicator={false}
             style={{ marginTop: 15 }}
