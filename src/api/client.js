@@ -1,16 +1,26 @@
 import { crate, create } from 'apisauce';
+
 import cache from '../utility/cache';
 import authStorage from '../auth/storage';
 import settings from '../config/settings';
+import useAuth from '../auth/useAuth';
+
 const apiClient = create({
   // baseURL: 'https://10.0.2.2:9000/api',
   baseURL: settings.apiUrl,
 });
+
 apiClient.addAsyncRequestTransform(async (request) => {
   const auth = await authStorage.getToken();
   if (!auth) return;
   request.headers['authorization'] = `Bearer ${auth}`;
 });
+
+apiClient.addAsyncResponseTransform(async (response) => {
+   if(response.error && response.error.expiredAt){
+    alert('Token expired');
+   }
+  });
 
 const get = apiClient.get;
 

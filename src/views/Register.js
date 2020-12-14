@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 
 import Screen from '../components/Screen';
 import SubmitButton from '../components/forms/SubmitButton';
+import FormAvatarPicker from '../components/forms/FormAvatarPicker';
 import Auth from '../api/auth';
 import ErrorMessage from '../components/forms/ErrorMessage';
 import useAuth from '../auth/useAuth';
@@ -14,6 +15,7 @@ import ActivityIndicator from '../components/ActivityIndicator';
 import settings from '../config/settings';
 
 const validationSchema = Yup.object().shape({
+  avatar: Yup.string().required('Insira uma imagem'),
   name: Yup.string().required('Nome é obrigatório').min(1),
   email: Yup.string().required('E-mail é obrigatório').min(1),
   password: Yup.string().required('Senha é obrigatória').min(1),
@@ -39,14 +41,28 @@ export default function Register() {
     // const { data: token } = await loginApi.request(user.email, user.password);
     // console.log(token, 'token');
     // authStore.logIn(token.token);
+    // console.log(values);return;
+
+    const data = new FormData();
+    let imageName = values.avatar.split('/');
+    imageName = imageName[imageName.length-1];
+
+    data.append('email', values.email);
+    data.append('password', values.password);
+    data.append('name', values.name);
+    data.append('avatar',{
+    name: imageName,
+    type: 'image/jpeg',
+    uri: values.avatar,
+    });
 
     fetch(`${settings.apiUrl}/users`, {
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+      body: data,
     })
       .then(function (response) {
         return response.json();
@@ -78,10 +94,12 @@ export default function Register() {
             name: '',
             email: '',
             password: '',
+            avatar: '',
           }}
           onSubmit={handleSubmit}
           validationSchema={validationSchema}
         >
+          <FormAvatarPicker name="avatar"/>
           <ErrorMessage
             error='Usuário ou senha já cadastrados'
             visible={error}
@@ -99,7 +117,8 @@ export default function Register() {
             placeholder='E-mail'
             autoCapitalize='none'
             autoCorrect={false}
-            keyboardType='numeric'
+            KeyboardType='email-address'
+            textContentType='emailAddress'
           />
           <AppFormField
             secureTextEntry

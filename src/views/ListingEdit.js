@@ -8,12 +8,11 @@ import AppFormField from '../components/forms/AppFormField';
 import AppFormPicker from '../components/forms/AppFormPicker';
 import FormImagePicker from '../components/forms/FormImagePicker';
 import SubmitButton from '../components/forms/SubmitButton';
-import ImageInput from '../components/ImageInput';
 import Screen from '../components/Screen';
-import defaultStyles from '../config/styles';
 import useLocation from '../hooks/useLocation';
 import listingApi from '../api/listings';
 import Upload from './Upload';
+import AuthContext from '../auth/context';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('campo obrigatório').min(1).label('Título'),
@@ -91,10 +90,12 @@ export default function ListingEdit() {
   const location = useLocation();
   const [uploadVisible, setUploadVisible] = React.useState(false);
   const [progress, setProgress] = React.useState(0);
+  const { user } = React.useContext(AuthContext);
 
   async function handleSubmit(listing, { resetForm }) {
     setProgress(0);
     setUploadVisible(true);
+    listing.user = user.id;
     const res = await listingApi.addListing(
       { ...listing, location },
       (progress) => setProgress(progress)

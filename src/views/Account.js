@@ -8,25 +8,32 @@ import ListItemSeparator from '../components/ListItemSeparator';
 import Screen from '../components/Screen';
 import colors from '../config/colors';
 
-const menuItems = [
-  {
-    title: 'Minhas listas',
-    icon: {
-      name: 'format-list-bulleted',
-      backgroundColor: colors.primary,
-    },
-  },
-  {
-    title: 'Minhas mensagens',
-    icon: {
-      name: 'email',
-      backgroundColor: colors.secondary,
-    },
-    targetScreen: 'Messages',
-  },
-];
 export default function Account({ navigation }) {
-  const { user, logOut } = useAuth();
+    const { user, logOut } = useAuth();
+
+    const menuItems = [
+        {
+        title: 'Minhas listas',
+        icon: {
+            name: 'format-list-bulleted',
+            backgroundColor: colors.primary,
+        },
+        targetScreen: 'UserFeed',
+        params: {
+            title:'Meus anúncios',
+            user:user.id
+        }
+        },
+        {
+        title: 'Minhas mensagens',
+        icon: {
+            name: 'email',
+            backgroundColor: colors.secondary,
+        },
+        targetScreen: 'Messages',
+        params: {}
+        },
+    ];
 
   return (
     <Screen style={styles.screen}>
@@ -34,7 +41,7 @@ export default function Account({ navigation }) {
         <ListItem
           title={user.name}
           subTitle={user.email}
-          image={require('../assets/duane.jpg')}
+          image={{uri:user.avatar}}
         ></ListItem>
       </View>
       <View style={styles.container}>
@@ -51,7 +58,7 @@ export default function Account({ navigation }) {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
-              onPress={() => navigation.navigate(item.targetScreen)}
+              onPress={() => navigation.navigate(item.targetScreen,item.params)}
             />
           )}
         />

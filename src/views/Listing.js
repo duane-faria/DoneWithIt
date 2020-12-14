@@ -11,15 +11,26 @@ import AppButton from '../components/AppButton';
 import ActivityIndicator from '../components/ActivityIndicator';
 import useApi from '../hooks/useApi';
 
-export default function Listing({ navigation }) {
+export default function Listing({ navigation, route }) {
   const flatlist = React.useRef();
-  const { data: listings, error, loading, request: loadListings } = useApi(
-    listingsApi.getListings
-  );
+  const userId = route.params?.user;
+  let func;
+  console.log(userId)
+  if(userId){
+       func =  () => listingsApi.getListingsByUser(userId);
+  }else{
+    func =  listingsApi.getListings;
+  }
+    const { data: listings, error, loading, request: loadListings } = useApi(
+        func
+        );
   const [refreshing,setRefreshing] = React.useState(false);
 
-
   React.useEffect(() => {
+    // if(userId){
+    //     getListingsByUser(userId);
+    // }else{
+    // }
     loadListings();
 
     flatlist.current.scrollToEnd();

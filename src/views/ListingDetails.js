@@ -13,7 +13,7 @@ import ListItem from '../components/ListItem';
 import MessageSeller from '../components/MessageSeller';
 import colors from '../config/colors';
 
-export default function ListingDetails({ route }) {
+export default function ListingDetails({ route, navigation }) {
   const listing = route.params;
   return (
     <ScrollView style={styles.container}>
@@ -26,12 +26,14 @@ export default function ListingDetails({ route }) {
         <View style={styles.detailsContainer}>
           <AppText style={styles.title}>{listing.title}</AppText>
           <AppText style={styles.price}>{'R$ ' + listing.price}</AppText>
+          <AppText style={styles.description}>{listing.description}</AppText>
         </View>
         <View style={styles.userContainer}>
           <ListItem
-            image={require('../assets/duane.jpg')}
-            title='Duane Faria'
+            image={{uri:listing.user.avatar}}
+            title={listing.user.name}
             subTitle='5 itens'
+            onPress={() => navigation.navigate('UserFeed',{ title:`Anúncions de ${listing.user.name}`, user: listing.user._id })}
           />
         </View>
         <View style={styles.messageContainer}>
@@ -60,6 +62,10 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     fontWeight: 'bold',
     fontSize: 20,
+    marginVertical: 10,
+  },
+  description:{
+    fontSize: 18,
     marginVertical: 10,
   },
   userContainer: {

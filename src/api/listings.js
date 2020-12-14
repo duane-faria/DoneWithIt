@@ -4,13 +4,16 @@ const endpoint = '/ads';
 
 const getListings = () => client.get(endpoint);
 
+const getListingsByUser = (userId) => client.get(`${endpoint}/user/${userId}`);
+
 const addListing = (listing, onUploadProgress) => {
   const data = new FormData();
 
   data.append('title', listing.title);
+  data.append('user', listing.user);
   data.append('price', listing.price);
   data.append('categoryId', listing.category.value);
-  data.append('description', listing.category.value);
+  data.append('description', listing.description);
 
   listing.images.forEach((image, index) => {
     data.append('files', {
@@ -32,4 +35,5 @@ const addListing = (listing, onUploadProgress) => {
 export default {
   addListing,
   getListings,
+  getListingsByUser
 };
