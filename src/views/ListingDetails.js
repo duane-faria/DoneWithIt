@@ -32,7 +32,7 @@ export default function ListingDetails({ route, navigation }) {
           <ListItem
             image={{uri:listing.user.avatar}}
             title={listing.user.name}
-            subTitle='5 itens'
+            subTitle={listing.user?.totalAds > 1 ? listing.user.totalAds + ' items' : listing.user.totalAds + ' item'}
             onPress={() => navigation.navigate('UserFeed',{ title:`Anúncions de ${listing.user.name}`, user: listing.user._id })}
           />
         </View>
