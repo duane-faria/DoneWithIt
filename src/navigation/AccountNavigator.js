@@ -2,6 +2,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Account from '../views/Account';
+import AccountListingDetails from '../views/ListingDetails';
+import colors from '../config/colors';
 import Feed from '../views/Listing';
 import Messages from '../views/Messages';
 
@@ -20,9 +22,18 @@ const AccountNavigator = () => (
       options={{ title: 'Mensagens' }}
     />
     <Stack.Screen
-      name='UserFeed'
+      name='AccountUserFeed'
       component={Feed}
       options={({route:{params}}) => ({ title: params.title })}
+    />
+    <Stack.Screen
+      name='AccountListingDetails'
+      component={AccountListingDetails}
+      options={{
+        title: '',
+        headerTransparent: true,
+        headerTintColor: colors.primary,
+      }}
     />
   </Stack.Navigator>
 );

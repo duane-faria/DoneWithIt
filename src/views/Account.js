@@ -18,7 +18,7 @@ export default function Account({ navigation }) {
             name: 'format-list-bulleted',
             backgroundColor: colors.primary,
         },
-        targetScreen: 'UserFeed',
+        targetScreen: 'AccountUserFeed',
         params: {
             title:'Meus anúncios',
             user:user.id

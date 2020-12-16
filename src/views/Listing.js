@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlatList, StyleSheet } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 
 import Card from '../components/Card';
 import Screen from '../components/Screen';
@@ -13,24 +14,19 @@ import useApi from '../hooks/useApi';
 
 export default function Listing({ navigation, route }) {
   const flatlist = React.useRef();
+  const routeInfo = useRoute();
+
   const userId = route.params?.user;
   let func;
-  console.log(userId)
   if(userId){
-       func =  () => listingsApi.getListingsByUser(userId);
+    func =  () => listingsApi.getListingsByUser(userId);
   }else{
     func =  listingsApi.getListings;
   }
-    const { data: listings, error, loading, request: loadListings } = useApi(
-        func
-        );
+  const { data: listings, error, loading, request: loadListings } = useApi(func);
   const [refreshing,setRefreshing] = React.useState(false);
 
   React.useEffect(() => {
-    // if(userId){
-    //     getListingsByUser(userId);
-    // }else{
-    // }
     loadListings();
 
     flatlist.current.scrollToEnd();
@@ -63,7 +59,9 @@ export default function Listing({ navigation, route }) {
                 subTitle={'R$ ' + item.price}
                 imageUrl={item.images[0].url}
                 onPress={() =>
-                  navigation.navigate(routes.LISTING_DETAILS, item)
+                //   navigation.navigate(routes.LISTING_DETAILS, item)
+                // userId ? navigation.navigate('AccountListingDetails', item) : navigation.navigate(routes.LISTING_DETAILS, item)
+                routeInfo.name == 'AccountUserFeed' ? navigation.navigate('AccountListingDetails', item) : navigation.navigate(routes.LISTING_DETAILS, item)
                 }
                 thumbnailUrl={item.images[0].thumbnailUrl}
               />

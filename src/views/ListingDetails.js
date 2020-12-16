@@ -12,9 +12,12 @@ import AppText from '../components/AppText';
 import ListItem from '../components/ListItem';
 import MessageSeller from '../components/MessageSeller';
 import colors from '../config/colors';
+import useAuth from '../auth/useAuth';
 
 export default function ListingDetails({ route, navigation }) {
   const listing = route.params;
+  const { user: userAuthenticated } = useAuth();
+
   return (
     <ScrollView style={styles.container}>
       <KeyboardAvoidingView
@@ -33,7 +36,7 @@ export default function ListingDetails({ route, navigation }) {
             image={{uri:listing.user.avatar}}
             title={listing.user.name}
             subTitle={listing.user?.totalAds > 1 ? listing.user.totalAds + ' items' : listing.user.totalAds + ' item'}
-            onPress={() => navigation.navigate('UserFeed',{ title:`Anúncions de ${listing.user.name}`, user: listing.user._id })}
+            onPress={() => userAuthenticated.id == listing.user._id ? navigation.navigate('UserFeed',{ title:`Meus anúncios`, user: listing.user._id }) : navigation.navigate('UserFeed',{ title:`Anúncions de ${listing.user.name}`, user: listing.user._id })}
           />
         </View>
         <View style={styles.messageContainer}>
